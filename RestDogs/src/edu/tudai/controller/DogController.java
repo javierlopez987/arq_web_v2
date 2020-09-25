@@ -1,8 +1,6 @@
 package edu.tudai.controller;
 
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
+import java.util.Collection;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -20,9 +18,8 @@ public class DogController {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Dog> getDogs() {
-		return IntStream.range(0, 20).mapToObj(i -> new Dog(i, "Name_" + i, "Breed_" + i, i))
-				.collect(Collectors.toList());
+	public Collection<Dog> getDogs() {
+		return JPADAOFactory.getInstance().getDogDAO().selectAll();
 	}
 
 	@GET
@@ -36,8 +33,8 @@ public class DogController {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
-	public String save(Dog u) {
-		System.out.println("Guardando perro " + u);
+	public String create(Dog d) {
+		JPADAOFactory.getInstance().getDogDAO().insert(d);
 		return "El perro fue guardado con exito";
 	}
 }

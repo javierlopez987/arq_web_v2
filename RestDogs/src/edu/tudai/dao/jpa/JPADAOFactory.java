@@ -1,21 +1,15 @@
 package edu.tudai.dao.jpa;
 
-import java.io.Closeable;
-
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-
+import edu.tudai.controller.EMF;
 import edu.tudai.dao.i.DAOFactory;
 
-public class JPADAOFactory implements DAOFactory, Closeable {
+public class JPADAOFactory implements DAOFactory {
 	private static JPADAOFactory instance;
-	private EntityManagerFactory emf;
 	private EntityManager em;
 	
 	private JPADAOFactory() {
-		emf = Persistence.createEntityManagerFactory("RestDogs");
-		em = emf.createEntityManager();
+		em = EMF.createEntityManager();
 	}
 	
 	public static JPADAOFactory getInstance() {
@@ -29,9 +23,4 @@ public class JPADAOFactory implements DAOFactory, Closeable {
 		return DogDAO.getInstance(em);
 	}
 
-	@Override
-	public void close() {
-		emf.close();
-		instance = null;
-	}
 }
