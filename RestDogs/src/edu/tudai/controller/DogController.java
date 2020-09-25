@@ -12,6 +12,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import edu.tudai.dao.jpa.JPADAOFactory;
 import edu.tudai.pojo.Dog;
 
 @Path("/dogs")
@@ -28,7 +29,8 @@ public class DogController {
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Dog getDog(@PathParam("id") int id) {
-		return new Dog(id, "Name_" + id, "Breed_" + id, id);
+		Dog dog = JPADAOFactory.getInstance().getDogDAO().find(id);
+		return dog;
 	}
 
 	@POST

@@ -6,17 +6,25 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
-import edu.tudai.dao.i.DAODog;
 import edu.tudai.pojo.Dog;
 
-public class JPADAODog implements DAODog {
+public class DogDAO {
 
+	private static DogDAO instance;
 	private EntityManager em;
 	
-	public JPADAODog(EntityManager em) {
+	private DogDAO(EntityManager em) {
 		this.em = em;
 	}
-	@Override
+	
+	public static DogDAO getInstance(EntityManager em) {
+		if(instance == null) {
+			instance = new DogDAO(em);
+		}
+		
+		return instance;
+	}
+	
 	public boolean insert(Dog d) {
 		boolean inserted;
 		try {
@@ -32,7 +40,6 @@ public class JPADAODog implements DAODog {
 		return inserted;
 	}
 
-	@Override
 	public boolean delete(Dog d) {
 		boolean deleted;
 		String jpql = "DELETE FROM Dog d WHERE d = ?1";
@@ -54,18 +61,15 @@ public class JPADAODog implements DAODog {
 		return deleted;
 	}
 
-	@Override
 	public Dog find(int id) {
 		return em.find(Dog.class, id);
 	}
 
-	@Override
 	public boolean update(Dog d) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	@Override
 	public Collection<Dog> selectAll() {
 		Collection<Dog> result = null;
 		String jpql = "SELECT d FROM Dog d";
