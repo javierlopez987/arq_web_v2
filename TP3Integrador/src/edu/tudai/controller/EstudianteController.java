@@ -25,7 +25,7 @@ public class EstudianteController {
 	@GET
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Estudiante getDog(@PathParam("id") int id) {
+	public Estudiante getEstudiante(@PathParam("id") int id) {
 		Estudiante estudiante = JPADAOFactory.getInstance().getDAOEstudiante().findEstudiante(id);
 		return estudiante;
 	}

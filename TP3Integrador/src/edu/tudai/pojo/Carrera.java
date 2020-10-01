@@ -14,7 +14,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
 import edu.tudai.dao.jpa.JPADAOFactory;
-import edu.tudai.dao.jpa.JPADAOMatricula;
 
 @Entity
 public class Carrera {
