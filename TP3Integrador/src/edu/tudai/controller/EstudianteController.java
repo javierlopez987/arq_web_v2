@@ -20,24 +20,24 @@ import edu.tudai.pojo.Estudiante;
 public class EstudianteController {
 
 	@GET
-	@Path("/listar")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Collection<Estudiante> getEstudiantes() {
 		return JPADAOFactory.getInstance().getDAOEstudiante().selectEstudiantes();
 	}
 	
 	@GET
-	@Path("/listarxresidencia")
+	@Path("/{carreraId}/{residencia}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Collection<Estudiante> getEstudiantesByResidencia(Carrera carrera, String residencia) {
+	public Collection<Estudiante> getEstudiantesByResidencia(@PathParam("carreraId") int carreraId, @PathParam("residencia") String residencia) {
+		Carrera carrera = JPADAOFactory.getInstance().getDAOCarrera().findCarrera(carreraId);
 		Collection<Estudiante> result = JPADAOFactory.getInstance().getDAOEstudiante().selectEstudiantesByResidencia(carrera,residencia);
 		return result;
 	}
 	
 	@GET
-	@Path("/listarxresidencia")
+	@Path("/lista/{genero}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Collection<Estudiante> getEstudiantesByGenero(String genero) {
+	public Collection<Estudiante> getEstudiantesByGenero(@PathParam("genero") String genero) {
 		Collection<Estudiante> result = JPADAOFactory.getInstance().getDAOEstudiante().selectEstudiantesByGenero(genero);
 		return result;
 	}
@@ -52,7 +52,6 @@ public class EstudianteController {
 	}
 
 	@POST
-	@Path("/alta")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
 	public String create(Estudiante e) {

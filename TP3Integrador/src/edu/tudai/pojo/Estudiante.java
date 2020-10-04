@@ -9,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Estudiante implements Comparable<Estudiante>{
 	@Id
@@ -29,6 +31,7 @@ public class Estudiante implements Comparable<Estudiante>{
 	@Column (nullable = false)
 	private int nro_lu;
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "alumno")
+	@JsonIgnore
 	private List<Matricula> titulos;
 	
 	public Estudiante() {

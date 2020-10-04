@@ -53,16 +53,15 @@ public class CarreraController {
 	
 	
 	@GET
-	@Path("/listar")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Collection<Carrera> getCarreras() {
 		return JPADAOFactory.getInstance().getDAOCarrera().selectCarreras();
 	}
 	
 	@GET
-	@Path("/listarconinscriptos")
+	@Path("/coninscriptos")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Collection<CarreraDTO> getCarrerasInscri() {
+	public Collection<CarreraDTO> getCarrerasConInscriptos() {
 		List<Object[]> info = (List<Object[]>) ((JPADAOCarrera) JPADAOFactory.getInstance().getDAOCarrera()).selectCarrerasConInscriptos();;
 		Collection<CarreraDTO> resultado = new ArrayList<CarreraDTO>();
 		CarreraDTO dto = null; 
@@ -86,7 +85,6 @@ public class CarreraController {
 	}
 	
 	@POST
-	@Path("/alta")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
 	public String create(Carrera c) {
