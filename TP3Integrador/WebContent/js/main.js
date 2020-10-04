@@ -1,8 +1,7 @@
 "use strict";
 document.addEventListener("DOMContentLoaded", function() {
     const URL = "http://localhost:8080/TP3Integrador/api/";
-    let msjError = document.querySelector("#errorMsj");
-    console.log(msjError);
+    let msjError = document.querySelector(".errorMsj");
     msjError.setAttribute("display", "none");
 
     let btnReporte = document.querySelector("#btnReporte");
@@ -11,8 +10,8 @@ document.addEventListener("DOMContentLoaded", function() {
     async function cargarReporteCarrera(){
         let request = URL + "carreras/reporte";
         let tabla = document.querySelector("#tableReport");
+        tabla.innerHTML = "<span>Cargando...</span>";
         try {
-            tabla.innerHTML = "<span>Cargando...</span>";
             btnReporte.setAttribute("disabled", true);
             let response = await fetch(request);
             if (response.ok) {
