@@ -13,13 +13,13 @@ public interface DAOEstudiante {
 
 	Estudiante findEstudiante(int id);
 	
+	boolean updateEstudiante(Estudiante e);
+	
+	Collection<Estudiante> selectEstudiantes();
+	
 	Estudiante getEstudiante(int nro_lu);
 	
 	Collection<Estudiante> selectEstudiantesByResidencia(Carrera carrera,String residencia);
 	
 	Collection<Estudiante> selectEstudiantesByGenero(String genero);
-
-	boolean updateEstudiante(Estudiante e);
-
-	Collection<Estudiante> selectEstudiantes();
 }

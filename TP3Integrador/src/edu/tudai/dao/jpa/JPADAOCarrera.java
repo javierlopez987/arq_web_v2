@@ -67,7 +67,6 @@ public class JPADAOCarrera implements DAOCarrera {
 		Collection<Carrera> result;
 		String jpql = "SELECT t FROM Carrera t";
 		
-		em.getTransaction().begin();
 		try {
 			TypedQuery<Carrera> query = em.createQuery(jpql, Carrera.class);
 			result = query.getResultList();
@@ -75,7 +74,6 @@ public class JPADAOCarrera implements DAOCarrera {
 			System.out.println(e);
 			result = null;
 		}
-		em.getTransaction().commit();
 		
 		return result;
 	}

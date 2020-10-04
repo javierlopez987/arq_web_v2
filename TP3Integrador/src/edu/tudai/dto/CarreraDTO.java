@@ -4,9 +4,6 @@ import java.io.Serializable;
 
 public class CarreraDTO implements Serializable{
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	private String carrera;
@@ -16,6 +13,18 @@ public class CarreraDTO implements Serializable{
 	private int inscriptos;
 	
 	private int egresados;
+
+	public CarreraDTO() {
+		super();
+	}
+
+	public CarreraDTO(String carrera, int ciclo, int inscriptos, int egresados) {
+		super();
+		this.carrera = carrera;
+		this.ciclo = ciclo;
+		this.inscriptos = inscriptos;
+		this.egresados = egresados;
+	}
 
 	public String getCarrera() {
 		return carrera;

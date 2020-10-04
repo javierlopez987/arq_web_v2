@@ -38,10 +38,9 @@ public class Estudiante implements Comparable<Estudiante>{
 		super();
 	}
 
-	public Estudiante(int id_estudiante, String nombre, String apellido, int edad, String genero, int dni,
+	public Estudiante(String nombre, String apellido, int edad, String genero, int dni,
 			String residencia, int nro_lu) {
 		super();
-		this.id = id_estudiante;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.edad = edad;
@@ -114,16 +113,6 @@ public class Estudiante implements Comparable<Estudiante>{
 	public List<Matricula> getTitulos() {
 		List<Matricula> copy = new ArrayList<Matricula>(titulos);
 		return copy;
-	}
-	
-	
-	//**carga la @param @Matricula.egreso fecha de egreso siendo que se encuentre la @Carrera c*/
-	public void  colacionar(int fecha,Carrera c){
-		for(Matricula m : titulos) {
-			if((m.getCursada().getId_carrera()) == (c.getId_carrera())){
-				m.setEgreso(fecha);
-			}
-		}
 	}
 	
 	@Override

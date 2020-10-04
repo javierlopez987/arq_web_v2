@@ -11,6 +11,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import edu.tudai.dao.jpa.JPADAOEstudiante;
 import edu.tudai.dao.jpa.JPADAOFactory;
@@ -27,12 +28,37 @@ public class EstudianteController {
 	}
 	
 	@GET
-	@Path("/{carreraId}/{residencia}")
+	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Collection<Estudiante> getEstudiantesByResidencia(@PathParam("carreraId") int carreraId, @PathParam("residencia") String residencia) {
-		Carrera carrera = JPADAOFactory.getInstance().getDAOCarrera().findCarrera(carreraId);
-		Collection<Estudiante> result = JPADAOFactory.getInstance().getDAOEstudiante().selectEstudiantesByResidencia(carrera,residencia);
-		return result;
+	public Estudiante getEstudiante(@PathParam("id") int id) {
+		Estudiante estudiante = JPADAOFactory.getInstance().getDAOEstudiante().findEstudiante(id);
+		return estudiante;
+	}
+
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response create(Estudiante e) {
+		if(JPADAOFactory.getInstance().getDAOEstudiante().insertEstudiante(e)) {
+			return Response.status(Response.Status.OK).build();			
+		} else {
+			return Response.status(Response.Status.NOT_MODIFIED).build();	
+		}
+	}
+	
+	@PUT
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
+	public String update(Estudiante e) {
+		JPADAOFactory.getInstance().getDAOEstudiante().updateEstudiante(e);
+		return "El estudiante fue modificado con exito";
+	}
+	
+	@GET
+	@Path("/lu/{nro_lu}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Estudiante getEstudianteByLu(@PathParam("nro_lu") int nro_lu) {
+		Estudiante estudiante = JPADAOFactory.getInstance().getDAOEstudiante().getEstudiante(nro_lu);
+		return estudiante;
 	}
 	
 	@GET
@@ -43,29 +69,12 @@ public class EstudianteController {
 		return result;
 	}
 	
-
 	@GET
-	@Path("/lu/{nro_lu}")
+	@Path("/{carreraId}/{residencia}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Estudiante getEstudiante(@PathParam("nro_lu") int nro_lu) {
-		Estudiante estudiante = JPADAOFactory.getInstance().getDAOEstudiante().getEstudiante(nro_lu);
-		return estudiante;
-	}
-	
-	
-	@PUT
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.TEXT_PLAIN)
-	public String upDate(Estudiante e) {
-		JPADAOFactory.getInstance().getDAOEstudiante().updateEstudiante(e);
-		return "El estudiante fue modificado con exito";
-	}
-
-	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.TEXT_PLAIN)
-	public String create(Estudiante e) {
-		JPADAOFactory.getInstance().getDAOEstudiante().insertEstudiante(e);
-		return "El estudiante fue guardado con exito";
+	public Collection<Estudiante> getEstudiantesByResidencia(@PathParam("carreraId") int carreraId, @PathParam("residencia") String residencia) {
+		Carrera carrera = JPADAOFactory.getInstance().getDAOCarrera().findCarrera(carreraId);
+		Collection<Estudiante> result = JPADAOFactory.getInstance().getDAOEstudiante().selectEstudiantesByResidencia(carrera,residencia);
+		return result;
 	}
 }

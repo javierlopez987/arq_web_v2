@@ -25,8 +25,8 @@ public class Matricula {
 	
 	public Matricula() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
+	
 	public Matricula(int ano_ingreso, Estudiante alumno, Carrera cursada) {
 		super();
 		this.ingreso = ano_ingreso;
@@ -34,6 +34,7 @@ public class Matricula {
 		this.cursada = cursada;
 		this.egreso = 0;
 	}
+	
 	public Matricula(int ano_ingreso, Estudiante alumno, Carrera cursada, int ano_egreso) {
 		super();
 		this.ingreso = ano_ingreso;
@@ -41,21 +42,27 @@ public class Matricula {
 		this.cursada = cursada;
 		this.egreso = ano_egreso;
 	}
+	
 	public int getIngreso() {
 		return ingreso;
 	}
+	
 	public void setIngreso(int ano_ingreso) {
 		this.ingreso = ano_ingreso;
 	}
-	public Estudiante getInscripto() {
+	
+	public Estudiante getAlumno() {
 		return alumno;
 	}
-	public void setInscripto(Estudiante alumno) {
+	
+	public void setAlumno(Estudiante alumno) {
 		this.alumno = alumno;
 	}
+	
 	public Carrera getCursada() {
 		return cursada;
 	}
+	
 	public void setCursada(Carrera cursada) {
 		this.cursada = cursada;
 	}
@@ -63,14 +70,17 @@ public class Matricula {
 	public int getEgreso() {
 		return egreso;
 	}
+	
 	public void setEgreso(int egreso) {
 		this.egreso = egreso;
 	}
+	
 	@Override
 	public String toString() {
 		return "Matricula [alumno=" + alumno + ", cursada="
 				+ cursada + ", ingreso=" + ingreso + ", egreso=" + egreso + "]";
 	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -79,6 +89,7 @@ public class Matricula {
 		result = prime * result + ((cursada == null) ? 0 : cursada.hashCode());
 		return result;
 	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

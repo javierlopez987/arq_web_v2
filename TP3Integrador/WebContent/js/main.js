@@ -2,6 +2,7 @@
 document.addEventListener("DOMContentLoaded", function() {
     const URL = "http://localhost:8080/TP3Integrador/api/";
     let msjError = document.querySelector("#errorMsj");
+    console.log(msjError);
     msjError.setAttribute("display", "none");
 
     let btnReporte = document.querySelector("#btnReporte");

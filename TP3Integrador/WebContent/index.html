@@ -1,31 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="js/main.js"></script>
-<title>Sistema de Estudiantes</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+		integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<script src="js/main.js"></script>
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+		crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+		crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+		crossorigin="anonymous"></script>
+	<title>Sistema de Estudiantes</title>
 </head>
+
 <body>
 	<header>
 		<h3>Sistema de Estudiantes</h3>
 	</header>
 	<div>
-		<button id="btnReporte">REPORTE</button>
 		<span id="errorMsj"></span>
-		<table>
-			<thead>
-				<tr>
-					<th>Carrera</th>
-					<th>Ciclo</th>
-					<th>Ingresos</th>
-					<th>Egresos</th>
-				</tr>
-			</thead>
-			<tbody id="tableReport">
+		<p>
+			<button class="btn btn-primary" id="btnReporte" type="button" data-toggle="collapse" data-target="#collapseExample"
+				aria-expanded="false" aria-controls="collapseExample">
+				Reporte
+			</button>
+		</p>
+		<div class="collapse" id="collapseExample">
+			<div class="card card-body">
+				<table class="table">
+					<thead class="thead-light">
+						<tr>
+							<th scope="col">Carrera</th>
+							<th scope="col">Ciclo</th>
+							<th scope="col">Ingresos</th>
+							<th scope="col">Egresos</th>
+						</tr>
+					</thead>
+					<tbody id="tableReport">
 
-			</tbody>
-		</table>
+					</tbody>
+				</table>
+			</div>
+		</div>
 	</div>
 </body>
+
 </html>

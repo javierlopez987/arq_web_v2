@@ -31,10 +31,6 @@ public class Carrera {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cursada")
 	@JsonIgnore
 	private List<Matricula> matriculas;
-	@Transient
-	private int inscriptos;
-	@Transient
-	private Map<Integer, Integer> inscriptosPorAnio;
 
 	public Carrera() {
 		super();
@@ -73,25 +69,6 @@ public class Carrera {
 
 	public void setUnidad_academica(String unidad_academica) {
 		this.unidad_academica = unidad_academica;
-	}
-
-	public int getInscriptos() {
-		return inscriptos;
-	}
-
-	public void setInscriptos(int inscriptos) {
-		this.inscriptos = inscriptos;
-	}
-
-	public Map<Integer, Integer> getInscriptosPorAnio() {
-		return inscriptosPorAnio;
-	}
-
-	public void addInscriptosPorAnio(Integer anio, Integer inscriptos) {
-		if (this.inscriptosPorAnio == null) {
-			this.inscriptosPorAnio = new HashMap<Integer, Integer>();
-		}
-		this.inscriptosPorAnio.put(anio, inscriptos);
 	}
 
 	public List<Matricula> getMatriculas() {

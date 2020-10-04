@@ -20,10 +20,56 @@ import edu.tudai.dao.jpa.JPADAOMatricula;
 import edu.tudai.dto.CarreraDTO;
 import edu.tudai.pojo.Carrera;
 
-
 @Path("/carreras")
 public class CarreraController {
 
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<Carrera> getCarreras() {
+		return JPADAOFactory.getInstance().getDAOCarrera().selectCarreras();
+	}
+	
+	@GET
+	@Path("/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Carrera getCarrera(@PathParam("id") int id) {
+		Carrera carrera = JPADAOFactory.getInstance().getDAOCarrera().findCarrera(id);
+		return carrera;
+	}
+	
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
+	public String create(Carrera c) {
+		JPADAOFactory.getInstance().getDAOCarrera().insertCarrera(c);
+		return "La carrera fue cargada con exito";
+	}
+	
+	@PUT
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
+	public String update(Carrera c) {
+		JPADAOFactory.getInstance().getDAOCarrera().updateCarrera(c);
+		return "La carrera fue modificada con exito";
+	}
+	
+	@GET
+	@Path("/reporte/inscriptos")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<CarreraDTO> getCarrerasConInscriptos() {
+		List<Object[]> info = (List<Object[]>) ((JPADAOCarrera) JPADAOFactory.getInstance().getDAOCarrera()).selectCarrerasConInscriptos();;
+		Collection<CarreraDTO> resultado = new ArrayList<CarreraDTO>();
+		CarreraDTO dto = null; 
+		for(Object[] o: info) {
+			dto = new CarreraDTO();
+			Carrera c = (Carrera) o[0];
+			Long insc = (Long) o[1];
+			dto.setCarrera(c.getTitulo());
+			dto.setInscriptos(insc.intValue());
+			resultado.add(dto);
+		}
+		return resultado;
+	}
 	
 	@GET
 	@Path("/reporte")
@@ -51,59 +97,4 @@ public class CarreraController {
 		}
 		return resultado;
 	}
-	
-	
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public Collection<Carrera> getCarreras() {
-		return JPADAOFactory.getInstance().getDAOCarrera().selectCarreras();
-	}
-	
-	@GET
-	@Path("/coninscriptos")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Collection<CarreraDTO> getCarrerasConInscriptos() {
-		List<Object[]> info = (List<Object[]>) ((JPADAOCarrera) JPADAOFactory.getInstance().getDAOCarrera()).selectCarrerasConInscriptos();;
-		Collection<CarreraDTO> resultado = new ArrayList<CarreraDTO>();
-		CarreraDTO dto = null; 
-		for(Object[] o: info) {
-			dto = new CarreraDTO();
-			Carrera c = (Carrera) o[0];
-			Long insc = (Long) o[1];
-			dto.setCarrera(c.getTitulo());
-			dto.setInscriptos(insc.intValue());
-			resultado.add(dto);
-		}
-		return resultado;
-	}
-	
-	@GET
-	@Path("/id/{id}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Carrera getCarrera(@PathParam("id") int id) {
-		Carrera carrera = JPADAOFactory.getInstance().getDAOCarrera().findCarrera(id);
-		return carrera;
-	}
-	
-	
-	
-	
-	@PUT
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.TEXT_PLAIN)
-	public String upDate(Carrera c) {
-		JPADAOFactory.getInstance().getDAOCarrera().updateCarrera(c);
-		return "La carrera fue modificada con exito";
-	}
-	
-	
-	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.TEXT_PLAIN)
-	public String create(Carrera c) {
-		JPADAOFactory.getInstance().getDAOCarrera().insertCarrera(c);
-		return "La carrera fue cargada con exito";
-	}
-	
-	
 }

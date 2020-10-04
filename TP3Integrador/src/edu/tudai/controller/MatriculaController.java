@@ -25,28 +25,28 @@ public class MatriculaController {
 	}
 
 	@GET
-	@Path("/id/{id}")
+	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Matricula getMatricula(@PathParam("id") int id) {
 		Matricula matricula = JPADAOFactory.getInstance().getDAOMatricula().findMatricula(id);
 		return matricula;
 	}
 	
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
+	public String create() {
+		Matricula m = new Matricula();
+		JPADAOFactory.getInstance().getDAOMatricula().insertMatricula(m);
+		System.out.println(m);
+		return "La matricula fue cargada con exito";
+	}
 	
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
-	public String upDate(Matricula m) {
+	public String update(Matricula m) {
 		JPADAOFactory.getInstance().getDAOMatricula().updateMatricula(m);
 		return "La matricula fue modificada con exito";
-	}
-	
-	
-	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.TEXT_PLAIN)
-	public String create(Matricula m) {
-		JPADAOFactory.getInstance().getDAOMatricula().insertMatricula(m);
-		return "La matricula fue cargada con exito";
 	}
 }
