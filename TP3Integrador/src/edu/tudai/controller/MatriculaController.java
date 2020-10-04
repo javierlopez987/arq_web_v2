@@ -35,8 +35,7 @@ public class MatriculaController {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
-	public String create() {
-		Matricula m = new Matricula();
+	public String create(Matricula m) {
 		JPADAOFactory.getInstance().getDAOMatricula().insertMatricula(m);
 		System.out.println(m);
 		return "La matricula fue cargada con exito";

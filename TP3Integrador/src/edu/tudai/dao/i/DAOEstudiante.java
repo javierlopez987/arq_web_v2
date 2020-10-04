@@ -22,4 +22,6 @@ public interface DAOEstudiante {
 	Collection<Estudiante> selectEstudiantesByResidencia(Carrera carrera,String residencia);
 	
 	Collection<Estudiante> selectEstudiantesByGenero(String genero);
+	
+	Collection<Estudiante> selectEstudiantesByCarrera(Carrera carrera);
 }

@@ -4,6 +4,8 @@ document.addEventListener("DOMContentLoaded", function () {
     let msjError = document.querySelector(".errorMsj");
     msjError.setAttribute("display", "none");
 
+    let carreraId = null;
+
     // LISTA CARRERAS
     let btnCarreras = document.querySelector("#btnCarreras");
     btnCarreras.addEventListener("click",cargarReporteCarrera);
@@ -19,9 +21,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 let dato = await response.json();
                 lista.innerHTML = "";
                 for (let elemento of dato) {
-                    lista.innerHTML += `<li id=${elemento.id_carrera}>
-                    <a href=${URL + 'carreras/' + elemento.id_carrera}>${elemento.titulo}</a></li>`;
+                    lista.innerHTML += `<li>
+                        <label>${elemento.titulo}</label>
+                        <button class='matricular' id=${elemento.id_carrera}>Matricular alumno</button>
+                    </li>`;
                 }
+                let btnMatricular = document.querySelectorAll(".matricular");
+                btnMatricular.forEach(element => {
+                    element.addEventListener("click", cargarAlumnosCarrera)
+                });
             } else {
                 lista.innerHTML = "";
             	msjError.setAttribute("display", "visible");
@@ -38,47 +46,78 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    let btnAltaEstudiante = document.querySelector(".btnAltaEstudiante");
-    btnAltaEstudiante.addEventListener("click", async function (e) {
+    async function cargarAlumnosCarrera(e){
+        carreraId = e.target.id;
+        let request = URL + "estudiantes/carrera/" + e.target.id;
+        let listaCarreras = document.querySelector("#listaCarreras");
+        listaCarreras.innerHTML = "";
+        let listaAlumnos = document.querySelector("#listaAlumnos");
+        listaAlumnos.innerHTML = "<li>Cargando...</li>";
+        try {
+            btnCarreras.setAttribute("disabled", false);
+            let response = await fetch(request);
+            if (response.ok) {
+                let dato = await response.json();
+                listaAlumnos.innerHTML = "";
+                listaAlumnos.innerHTML = "<h3>Matricular a:</h3>";
+                for (let elemento of dato) {
+                    listaAlumnos.innerHTML += `<div><button class='btnConfirmaMatricula' id=${elemento.id_estudiante}>${elemento.apellido}, ${elemento.nombre}</button></div>`;
+                }
+                let btnMatricular = document.querySelectorAll(".btnConfirmaMatricula");
+                btnMatricular.forEach(element => {
+                    element.addEventListener("click", matricular)
+                });
+            } else {
+                listaAlumnos.innerHTML = "";
+            	msjError.setAttribute("display", "visible");
+            	msjError.innerHTML = "Error - Por favor, contáctese con proveedor del servicio";
+                console.log("URL error");
+                console.log(response);
+            }
+        } catch (exc) {
+            console.log(exc);
+            listaAlumnos.innerHTML = "";
+            msjError.setAttribute("display", "visible");
+            msjError.innerHTML = "Error - Por favor, contáctese con proveedor del servicio";
+            console.log("Connection error");
+        }
+    }
+
+    async function matricular(e) {
         e.preventDefault();
-        let estudiante = {
-            "nombre": document.querySelector(".nombre").value,
-            "apellido": document.querySelector(".apellido").value,
-            "edad": document.querySelector(".edad").value,
-            "genero": document.querySelector(".genero").value,
-            "dni": document.querySelector(".dni").value,
-            "residencia": document.querySelector(".residencia").value,
-            "nro_lu": document.querySelector(".nro_lu").value
+        let matricula = {
+            "id_estudiante": e.target.id,
+            "id_carrera": carreraId,
+            "ingreso": new Date().getFullYear()
         };
-        console.log(estudiante);
         let contenedor = document.querySelector(".contenedor");
         contenedor.innerHTML = "<span>Espere por favor...</span>";
         try {
-            let request = fetch(URL + "estudiantes", {
+            let request = fetch(URL + "matriculas", {
                 "method": "POST",
                 "headers": { "Content-Type": "application/json" },
-                "body": JSON.stringify(estudiante)
+                "body": JSON.stringify(matricula)
             });
-            console.log(request);
             let response = await request;
             if (response.ok) {
-                let text = await response.status;
+                let text = await response;
                 console.log(text);
                 contenedor.innerHTML = "";
-                contenedor.innerHTML = "<span>Estudiante agregado con éxito</span>";
-                contenedor.innerHTML += "<a href='estudiante.html'>Volver</a>";
+                contenedor.innerHTML = "<span>Estudiante matriculado con éxito</span>";
+                contenedor.innerHTML += "<a href='index.html'>Volver al inicio</a>";
             }
             else {
                 contenedor.innerHTML = "";
                 contenedor.innerHTML = "<span>Falla de URL</span>";
-                contenedor.innerHTML += "<a href='estudiante.html'>Volver</a>";
+                contenedor.innerHTML += "<a href='index.html'>Volver al inicio</a>";
             }
         }
         catch (exc) {
             console.log(exc);
             contenedor.innerHTML = "";
             contenedor.innerHTML = "<span>Falla de conexión</span>";
-            contenedor.innerHTML += "<a href='estudiante.html'>Volver</a>";
+            contenedor.innerHTML += "<a href='index.html'>Volver al inicio</a>";
         }
     })
+
 })

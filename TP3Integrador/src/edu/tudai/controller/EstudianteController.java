@@ -77,4 +77,13 @@ public class EstudianteController {
 		Collection<Estudiante> result = JPADAOFactory.getInstance().getDAOEstudiante().selectEstudiantesByResidencia(carrera,residencia);
 		return result;
 	}
+	
+	@GET
+	@Path("/carrera/{carreraId}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<Estudiante> getEstudiantesByResidencia(@PathParam("carreraId") int carreraId) {
+		Carrera carrera = JPADAOFactory.getInstance().getDAOCarrera().findCarrera(carreraId);
+		Collection<Estudiante> result = JPADAOFactory.getInstance().getDAOEstudiante().selectEstudiantesByCarrera(carrera);
+		return result;
+	}
 }

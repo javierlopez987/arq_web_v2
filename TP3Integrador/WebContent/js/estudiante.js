@@ -16,7 +16,6 @@ document.addEventListener("DOMContentLoaded", function () {
             "residencia": document.querySelector(".residencia").value,
             "nro_lu": document.querySelector(".nro_lu").value
         };
-        console.log(estudiante);
         let contenedor = document.querySelector(".contenedor");
         contenedor.innerHTML = "<span>Espere por favor...</span>";
         try {
@@ -25,7 +24,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 "headers": { "Content-Type": "application/json" },
                 "body": JSON.stringify(estudiante)
             });
-            console.log(request);
             let response = await request;
             if (response.ok) {
                 let text = await response.status;
