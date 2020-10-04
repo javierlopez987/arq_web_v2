@@ -5,6 +5,7 @@ import java.util.Collection;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -24,12 +25,22 @@ public class MatriculaController {
 	}
 
 	@GET
-	@Path("/{id}")
+	@Path("/id/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Matricula getMatricula(@PathParam("id") int id) {
 		Matricula matricula = JPADAOFactory.getInstance().getDAOMatricula().findMatricula(id);
 		return matricula;
 	}
+	
+	
+	@PUT
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
+	public String upDate(Matricula m) {
+		JPADAOFactory.getInstance().getDAOMatricula().updateMatricula(m);
+		return "La matricula fue modificada con exito";
+	}
+	
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)

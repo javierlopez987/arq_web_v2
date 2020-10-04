@@ -14,7 +14,8 @@ public interface DAOCarrera {
 	Carrera findCarrera(int id);
 
 	boolean updateCarrera(Carrera c);
-
+	
+	
 	Collection<Carrera> selectCarreras();
 	
 	Collection<Carrera> selectCarreras(Estudiante e);

@@ -7,6 +7,7 @@ import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -77,12 +78,24 @@ public class CarreraController {
 	}
 	
 	@GET
-	@Path("/{id}")
+	@Path("/id/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Carrera getCarrera(@PathParam("id") int id) {
 		Carrera carrera = JPADAOFactory.getInstance().getDAOCarrera().findCarrera(id);
 		return carrera;
 	}
+	
+	
+	
+	
+	@PUT
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
+	public String upDate(Carrera c) {
+		JPADAOFactory.getInstance().getDAOCarrera().updateCarrera(c);
+		return "La carrera fue modificada con exito";
+	}
+	
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
