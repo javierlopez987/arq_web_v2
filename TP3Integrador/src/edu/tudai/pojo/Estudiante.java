@@ -117,17 +117,6 @@ public class Estudiante implements Comparable<Estudiante>{
 	}
 	
 	
-	//**devuelve todas las @Matricula carreras concluidas*/
-	public List<Matricula> getConcluidos(){
-		List<Matricula> concluido = new ArrayList<Matricula>();
-		for (Matricula m : titulos) {
-			if (m.getEgreso() != 0) {
-				concluido.add(m);
-			}
-		}
-		return concluido;
-	}
-	
 	//**carga la @param @Matricula.egreso fecha de egreso siendo que se encuentre la @Carrera c*/
 	public void  colacionar(int fecha,Carrera c){
 		for(Matricula m : titulos) {

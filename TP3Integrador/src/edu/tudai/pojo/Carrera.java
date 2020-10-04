@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import edu.tudai.dao.jpa.JPADAOFactory;
 
 @Entity
@@ -27,6 +29,7 @@ public class Carrera {
 	@Column
 	private String unidad_academica;
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cursada")
+	@JsonIgnore
 	private List<Matricula> matriculas;
 	@Transient
 	private int inscriptos;
@@ -119,27 +122,7 @@ public class Carrera {
 		return matriculas.size();
 	}
 
-	// ** Devuelve una lista de @Matricula en estado graduados*/
-	public List<Matricula> getGraduados() {
-		List<Matricula> graduados = new ArrayList<Matricula>();
-		for (Matricula m : matriculas) {
-			if (m.getEgreso() != 0) {
-				graduados.add(m);
-			}
-		}
-		return graduados;
-	}
 
-	// **devuelve los @Matricula graduados en una fecha dada*/
-	public List<Matricula> getGraduados(int fecha) {
-		List<Matricula> graduados = new ArrayList<Matricula>();
-		for (Matricula m : matriculas) {
-			if (m.getEgreso() == fecha) {
-				graduados.add(m);
-			}
-		}
-		return graduados;
-	}
 
 	@Override
 	public String toString() {

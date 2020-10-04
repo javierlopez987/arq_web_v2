@@ -6,6 +6,7 @@ import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -35,7 +36,7 @@ public class EstudianteController {
 	}
 	
 	@GET
-	@Path("/lista/{genero}")
+	@Path("/genero/{genero}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Collection<Estudiante> getEstudiantesByGenero(@PathParam("genero") String genero) {
 		Collection<Estudiante> result = JPADAOFactory.getInstance().getDAOEstudiante().selectEstudiantesByGenero(genero);
@@ -44,11 +45,20 @@ public class EstudianteController {
 	
 
 	@GET
-	@Path("/{nro_lu}")
+	@Path("/lu/{nro_lu}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Estudiante getEstudiante(@PathParam("nro_lu") int nro_lu) {
 		Estudiante estudiante = JPADAOFactory.getInstance().getDAOEstudiante().getEstudiante(nro_lu);
 		return estudiante;
+	}
+	
+	
+	@PUT
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
+	public String upDate(Estudiante e) {
+		JPADAOFactory.getInstance().getDAOEstudiante().updateEstudiante(e);
+		return "El estudiante fue modificado con exito";
 	}
 
 	@POST
