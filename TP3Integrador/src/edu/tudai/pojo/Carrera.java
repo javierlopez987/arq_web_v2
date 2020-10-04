@@ -76,31 +76,6 @@ public class Carrera {
 		return copy;
 	}
 
-	public Matricula matricular(Estudiante e, int ingreso) {
-		Matricula nueva = new Matricula(ingreso, e, this);
-		if (!matriculas.contains(nueva)) {
-			JPADAOFactory.getInstance().getDAOMatricula().insertMatricula(nueva);
-			matriculas.add(nueva);
-		} else {
-			nueva = null;
-		}
-		return nueva;
-	}
-
-	/**
-	 * Devuelve true si al menos una vez un alumno fue matriculado dado que
-	 * matriculas conserva el registro histórico de la carrera
-	 */
-	public boolean tieneInscriptos() {
-		return !matriculas.isEmpty();
-	}
-
-	public int getCantInscriptos() {
-		return matriculas.size();
-	}
-
-
-
 	@Override
 	public String toString() {
 		return "Carrera [id_carrera=" + id + ", titulo=" + titulo + ", tipo=" + tipo + ", unidad_academica="
