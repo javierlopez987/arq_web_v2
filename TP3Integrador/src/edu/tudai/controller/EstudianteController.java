@@ -27,6 +27,14 @@ public class EstudianteController {
 		return JPADAOFactory.getInstance().getDAOEstudiante().selectEstudiantes();
 	}
 	
+	
+	@GET
+	@Path("/alfabetico")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<Estudiante> getEstudiantesOrderByLastname() {
+		return JPADAOFactory.getInstance().getDAOEstudiante().selectEstudiantesOrderByLastnameName();
+	}
+	
 	@GET
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -68,6 +76,8 @@ public class EstudianteController {
 		Collection<Estudiante> result = JPADAOFactory.getInstance().getDAOEstudiante().selectEstudiantesByGenero(genero);
 		return result;
 	}
+	
+	
 	
 	@GET
 	@Path("/{carreraId}/{residencia}")

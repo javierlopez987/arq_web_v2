@@ -5,6 +5,8 @@ document.addEventListener("DOMContentLoaded", function () {
     msjError.setAttribute("display", "none");
 
     let carreraId = null;
+    let toDate = new Date();
+    let year = parseInt(toDate.getFullYear());
 
     // LISTA CARRERAS
     let btnCarreras = document.querySelector("#btnCarreras");
@@ -84,11 +86,12 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     async function matricular(e) {
+        //let estudiante = 
         e.preventDefault();
         let matricula = {
             "id_estudiante": e.target.id,
             "id_carrera": carreraId,
-            "ingreso": new Date().getFullYear()
+            "ingreso": 2020
         };
         let contenedor = document.querySelector(".contenedor");
         contenedor.innerHTML = "<span>Espere por favor...</span>";
@@ -118,6 +121,6 @@ document.addEventListener("DOMContentLoaded", function () {
             contenedor.innerHTML = "<span>Falla de conexión</span>";
             contenedor.innerHTML += "<a href='index.html'>Volver al inicio</a>";
         }
-    })
+    }
 
 })

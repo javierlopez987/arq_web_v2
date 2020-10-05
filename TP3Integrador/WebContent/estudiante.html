@@ -11,7 +11,7 @@
 
 <body>
     <header>
-        <h3>Sistema de Estudiantes</h3>
+        <h1>Sistema de Estudiantes</h1>
         <nav>
             <ul>
                 <li><a href="index.html">Inicio</a></li>
@@ -36,6 +36,38 @@
             <button type="submit" class="btnAltaEstudiante">Agregar</button>
         </form>
         <span class="contenedor"></span>
+        <div class="consultas"> 
+            <h3>BUSQUEDAS</h3>
+            <label for="genero">Selecione un genero</label>
+            <select name="genero" id="genero">
+                <option value="Masculino">Masculino</option>
+                <option value="Femenino">Femenino</option>
+            </select>
+            <button id="btnGenero">BUSCAR GENERO</button>
+
+            <label for="nro_lu">Nro LU: </label>
+            <input type="text" id="nro_lu">
+            <button id="btnLu">BUSCAR L.U.</button>
+        </div>
+        <div class="listEstudiantes">
+            <button id="btnAlfabetico">Listar</button>
+		<table>
+			<thead>
+				<tr>
+					<th>Nombre</th>
+					<th>Apellido</th>
+					<th>Edad</th>
+                    <th>Genero</th>
+                    <th>DNI</th>
+                    <th>Residencia</th>
+                    <th>Nro LU</th>
+				</tr>
+			</thead>
+			<tbody id="tableEstudiantes">   
+		
+			</tbody>
+		</table>
+        </div>
     </main>
 </body>
 

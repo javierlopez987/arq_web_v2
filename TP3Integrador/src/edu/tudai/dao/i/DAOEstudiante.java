@@ -17,6 +17,8 @@ public interface DAOEstudiante {
 	
 	Collection<Estudiante> selectEstudiantes();
 	
+	Collection<Estudiante> selectEstudiantesOrderByLastnameName();
+	
 	Estudiante getEstudiante(int nro_lu);
 	
 	Collection<Estudiante> selectEstudiantesByResidencia(Carrera carrera,String residencia);

@@ -158,8 +158,8 @@ public class JPADAOEstudiante implements DAOEstudiante {
 	public Collection<Estudiante> selectEstudiantesByCarrera(Carrera carrera) {
 		Collection<Estudiante> result = null;
 		
-		String jpql = "SELECT e FROM Estudiante e JOIN e.titulos t "
-					+ "WHERE t.cursada = ?1 ORDER BY e.apellido, e.nombre";
+		String jpql = "SELECT DISTINCT e FROM Estudiante e JOIN e.titulos t "
+					+ "WHERE t.cursada != ?1 ORDER BY e.apellido, e.nombre";
 		try {
 			TypedQuery<Estudiante> query = em.createQuery(jpql, Estudiante.class);
 			query.setParameter(1, carrera);
