@@ -1,0 +1,18 @@
+body {
+    background-image: url(../image/fondoNaranja.jpg);
+}
+
+main {
+    display: flex;
+    flex-direction: row;
+
+}
+
+.consultas{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+
+

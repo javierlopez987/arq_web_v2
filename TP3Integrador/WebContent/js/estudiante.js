@@ -120,13 +120,13 @@ document.addEventListener("DOMContentLoaded", function () {
     async function listarEstudiante(){
         let container = document.querySelector("#tableEstudiantes");
         let lu = document.querySelector("#nro_lu").value;
+        container.innerHTML = "<h2>realizado conexion</h2>";
         try {
             let request = fetch(URL+"estudiantes/lu/"+lu+"");
             let response = await request;
             if (response.ok){
                 let elemento = await response.json();
                 container.innerHTML = "";
-             
                     container.innerHTML += "<tr><td>"+
                      elemento.apellido+"</td>"+
                     "<td>"+ elemento.nombre+"</td>"+
@@ -134,8 +134,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     "<td>"+ elemento.genero +"</td>"+
                     "<td>"+ elemento.dni + "</td>"+
                     "<td>"+ elemento.residencia + "</td>"+
-                    "<td>"+ elemento.nro_lu + "</td></tr>"
-                
+                    "<td>"+ elemento.nro_lu + "</td></tr>";
             }
             else {
                 container.innerHTML = "<h1>Falla de URL</h1>";
